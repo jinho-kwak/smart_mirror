@@ -1,0 +1,1 @@
+(crontab -l; echo "0 0 * * * cp /home/$USER/smart_mirror/logs/status.log /home/$USER/smart_mirror/logs/status.log-\$\(date +\\\\%Y\\\\%m\\\\%d\); cat dev/null > /home/$USER/smart_mirror/logs/status.log") | crontab -
