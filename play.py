@@ -71,67 +71,67 @@ if __name__ == '__main__':
     logger.info(file_list)
     cnt = len(file_list)
     idx = 0
-    # while True:
-    #     result_file = check_video_or_img(file_list[idx])
-    #     result_file = result_file.upper()
-    #     tmp_idx = 0
-    #     # print(file_list[idx])
+    while True:
+        result_file = check_video_or_img(file_list[idx])
+        result_file = result_file.upper()
+        tmp_idx = 0
+        # print(file_list[idx])
 
-    #     # 이미지 분기 
-    #     if result_file in ['JPG','PNG']:
-    #         zero = np.zeros(shape=(1080,1920,3), dtype=np.uint8)
-    #         img = cv2.imread(file_list[idx], cv2.IMREAD_COLOR)
-    #         for i in myrange(1,0,0.02):
-    #             if img.shape[0]*i <= 1080 and img.shape[1]*i <= 1920:
-    #                 tmp_idx = i
-    #                 break
+        # 이미지 분기 
+        if result_file in ['JPG','PNG']:
+            zero = np.zeros(shape=(1080,1920,3), dtype=np.uint8)
+            img = cv2.imread(file_list[idx], cv2.IMREAD_COLOR)
+            for i in myrange(1,0,0.02):
+                if img.shape[0]*i <= 1080 and img.shape[1]*i <= 1920:
+                    tmp_idx = i
+                    break
 
-    #         img = cv2.resize(img, dsize=(0,0), fx=tmp_idx,fy=tmp_idx,interpolation=cv2.INTER_AREA)
+            img = cv2.resize(img, dsize=(0,0), fx=tmp_idx,fy=tmp_idx,interpolation=cv2.INTER_AREA)
             
-    #         x = int((zero.shape[1] - img.shape[1]) / 2)
-    #         y = int((zero.shape[0] - img.shape[0]) / 2)
-    #         zero[y:y+img.shape[0], x:x+img.shape[1], :] = img
-    #         cv2.imshow('image',zero)
-    #         if cv2.waitKey(3000) >= 0:
-    #             break
-    #     # 영상 분기 
-    #     elif result_file in ['MOV','MP4']:
-    #         MJPG_CODEC = 1196444237.0 # MJPG
-    #         zero = np.zeros(shape=(1080,1920,3), dtype=np.uint8)
-    #         cap = cv2.VideoCapture(file_list[idx])
-    #         ret, img = cap.read()
-    #         for i in myrange(1,0,0.02):
-    #             if img.shape[0]*i <= 1080 and img.shape[1]*i <= 1920:
-    #                 tmp_idx = i
-    #                 break
-    #         width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
-    #         height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
-    #         cap.set(cv2.CAP_PROP_FOURCC, MJPG_CODEC)
-    #         cap.set(cv2.CAP_PROP_FRAME_WIDTH, width*tmp_idx)
-    #         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height*tmp_idx)
-    #         x = int((zero.shape[1] - img.shape[1]) / 2)
-    #         y = int((zero.shape[0] - img.shape[0]) / 2)
+            x = int((zero.shape[1] - img.shape[1]) / 2)
+            y = int((zero.shape[0] - img.shape[0]) / 2)
+            zero[y:y+img.shape[0], x:x+img.shape[1], :] = img
+            cv2.imshow('image',zero)
+            if cv2.waitKey(3000) >= 0:
+                break
+        # 영상 분기 
+        elif result_file in ['MOV','MP4']:
+            MJPG_CODEC = 1196444237.0 # MJPG
+            zero = np.zeros(shape=(1080,1920,3), dtype=np.uint8)
+            cap = cv2.VideoCapture(file_list[idx])
+            ret, img = cap.read()
+            for i in myrange(1,0,0.02):
+                if img.shape[0]*i <= 1080 and img.shape[1]*i <= 1920:
+                    tmp_idx = i
+                    break
+            width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+            height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+            cap.set(cv2.CAP_PROP_FOURCC, MJPG_CODEC)
+            cap.set(cv2.CAP_PROP_FRAME_WIDTH, width*tmp_idx)
+            cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height*tmp_idx)
+            x = int((zero.shape[1] - img.shape[1]) / 2)
+            y = int((zero.shape[0] - img.shape[0]) / 2)
             
-    #         while True:
-    #             ret, img = cap.read()
-    #             if img is None:
-    #                 break
+            while True:
+                ret, img = cap.read()
+                if img is None:
+                    break
                 
-    #             # x = int((zero.shape[1] - img.shape[1]) / 2)
-    #             # y = int((zero.shape[0] - img.shape[0]) / 2)
-    #             zero[y:y+img.shape[0], x:x+img.shape[1], :] = img
-    #             cv2.imshow('image',zero)
-    #             ch = cv2.waitKey(25)
+                # x = int((zero.shape[1] - img.shape[1]) / 2)
+                # y = int((zero.shape[0] - img.shape[0]) / 2)
+                zero[y:y+img.shape[0], x:x+img.shape[1], :] = img
+                cv2.imshow('image',zero)
+                ch = cv2.waitKey(25)
 
-    #             # 종료
-    #             if ch == ord('q'):
-    #                 break
-    #         cap.release()
+                # 종료
+                if ch == ord('q'):
+                    break
+            cap.release()
 
-    #     else:
-    #         print(f'확장자 {result_file} 분기 태울 것 ERROR')
+        else:
+            print(f'확장자 {result_file} 분기 태울 것 ERROR')
         
-    #     idx += 1
-    #     if idx >= cnt:
-    #         idx = 0
-    # cv2.destroyAllWindows()
+        idx += 1
+        if idx >= cnt:
+            idx = 0
+    cv2.destroyAllWindows()
