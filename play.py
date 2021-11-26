@@ -93,7 +93,10 @@ if __name__ == '__main__':
                 y = int((zero.shape[0] - img.shape[0]) / 2)
                 zero[y:y+img.shape[0], x:x+img.shape[1], :] = img
                 cv2.imshow('image',zero)
-                if cv2.waitKey(3000) >= 0:
+                
+                ch = cv2.waitKey(25)
+                # 종료
+                if ch == ord('q'):
                     break
             # 영상 분기 
             elif result_file in ['MOV','MP4']:
