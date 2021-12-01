@@ -94,7 +94,7 @@ if __name__ == '__main__':
                 zero[y:y+img.shape[0], x:x+img.shape[1], :] = img
                 cv2.imshow('image',zero)
                 
-                ch = cv2.waitKey(25)
+                ch = cv2.waitKey(2000)
                 # 종료
                 if ch == ord('q'):
                     break
