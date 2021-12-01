@@ -1,0 +1,17 @@
+version: '3'
+services:
+    smart_mirror:
+        container_name: smart_mirror
+        # restart: always
+        environment:
+          - QT_X11_NO_MITSHM=1
+          - DISPLAY=$DISPLAY
+        build: 
+          context: ./docker
+          dockerfile: Dockerfile
+        volumes:
+          - ./:/smart_mirror
+          - /tmp/.X11-unix:/tmp/.X11-unix:ro
+        working_dir: /smart_mirror
+        network_mode: "host"
+        command: python3 play.py files/2019

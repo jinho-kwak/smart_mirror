@@ -1,0 +1,5 @@
+apscheduler
+pillow
+serial
+pyserial
+colorlog
