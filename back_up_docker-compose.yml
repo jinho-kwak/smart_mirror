@@ -1,0 +1,80 @@
+##### 사용방법 #####
+
+# ~/Desktop 안에 /Smart_Retail_Project 폴더를 생성
+# /Smart_Retail_Project 안에 docker-compose.yml 파일 올려두기
+# /Smart_Retail_Project 에서 git clone https://github.com/naknakLEE/smart_retail.git
+# /Smart_Retail_Project 안에 /redis 폴더 생성
+# idc44 서버에서 ~/Desktop/redis/6379 안에 있는 /acl, /conf, /data 폴더를 로컬에서 생성해둔 /redis 폴더 안으로 복사
+
+# 폴더 구성
+# ~/Desktop/Smart_Retail_Project
+#  ├─ /smart_retail
+#  ├─ /redis
+#  │   ├─ /acl
+#  │   ├─ /conf
+#  │   └─ /data
+#  └─ docker_compose.yml
+
+# 네트워크 생성:
+# docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 smart_retail_project_bridge
+
+# 실행:
+# docker-compose up [--force-recreate]
+
+# 중지:
+# 'ctrl + C'
+
+# 요청 예시:
+# import requests
+# url = 'http://0.0.0.0:5050/door_opened'
+# data = {'storeId': '00888', 'deviceId': 's_00009', 'barcode': '12345'}
+# res = requests.post(url, json=data, verify=False, timeout=100)
+# print(res, res.text)
+
+version: '3'
+
+services:
+  sr_server_main:
+    container_name: sr_server_main
+    image: inhak/smart_retail_dev_env:0.0.2
+    ports:
+      - 5050:5000
+    networks:
+      smart_retail_project_default:
+        ipv4_address: 172.18.0.2
+    volumes:
+      - ~/Desktop/Smart_Retail_Project/smart_retail:/smart_retail
+    command: sh -c "cd /smart_retail && nohup python3 -u server_main.py"
+
+  sr_server_inference:
+    container_name: sr_server_inference
+    image: inhak/smart_retail_dev_env:0.0.2
+    ports:
+      - 6000:6000
+    networks:
+      smart_retail_project_default:
+        ipv4_address: 172.18.0.3
+    volumes:
+      - ~/Desktop/Smart_Retail_Project/smart_retail:/smart_retail
+    runtime: nvidia
+    command: sh -c "cd /smart_retail && nohup python3 -u server_inference.py"
+
+  sr_redis:
+    container_name: sr_redis
+    image: redis:latest
+    networks:
+      smart_retail_project_default:
+        ipv4_address: 172.18.0.4
+    ports:
+        - 6379:6379
+    volumes:
+        - ~/Desktop/Smart_Retail_Project/redis/data:/data
+        - ~/Desktop/Smart_Retail_Project/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+        - ~/Desktop/Smart_Retail_Project/redis/acl/users.acl:/etc/redis/users.acl
+    command: redis-server /usr/local/etc/redis/redis.conf
+
+networks:
+  smart_retail_project_default:
+    external:
+      name: smart_retail_project_bridge
+

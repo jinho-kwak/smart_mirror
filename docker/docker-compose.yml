@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+        main:
+                image: localhost:50000/test_server:0.0
+                volumes:
+                        - ${location_directory}:/smart_retail
+                privileged: true  # 시스템 주요 자원에 접근할 수 있는 권한 부여
+                command: bash -c "cd /smart_retail; python3 server_main.py"
+                stdin_open: true
+                tty: true
+                network_mode: "host"
+      
+        inference:
+                image: localhost:50000/test_server:0.0
+                volumes:
+                        - ${location_directory}:/smart_retail
+                        - ~/.aws:/root/.aws
+                privileged: true  # 시스템 주요 자원에 접근할 수 있는 권한 부여
+                command: bash -c "cd /smart_retail; python3 server_inference.py"
+                stdin_open: true
+                tty: true
+                network_mode: "host"
+
+

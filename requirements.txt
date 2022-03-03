@@ -1,0 +1,12 @@
+flask
+flask_bcrypt
+flask_cors
+flask_sqlalchemy
+pycryptodome
+redis
+pandas
+psycopg2-binary
+opencv-python
+boto3
+pillow
+ec2_metadata

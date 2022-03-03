@@ -1,0 +1,22 @@
+flask
+flask_bcrypt
+flask_cors
+flask_sqlalchemy
+redis
+requests
+colorlog
+pycryptodome
+boto3
+pandas
+psycopg2-binary
+pillow
+awscli
+tensorflow-serving-api == 2.4.1
+ec2_metadata
+awscli
+opencv-python
+gunicorn
+matplotlib
+pyzbar
+Werkzeug
+iteration_utilities
