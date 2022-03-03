@@ -1,5 +1,5 @@
 echo killing old docker processes!
-cd /home/ubuntu/smart_retail
+cd /home/ubuntu/smart_mirror
 docker-compose rm -fs
 
 echo building docker containers
