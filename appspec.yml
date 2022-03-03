@@ -1,0 +1,17 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: smart_mirror
+    overwrite: yes
+permissions:
+  - object: /smart_mirror
+    owner: root
+    group: root
+    mode: 755
+hooks:
+  AfterInstall:
+    - location: back_up.sh
+    - location: run_docker.sh
+      timeout: 60
+      runas: root

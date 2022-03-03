@@ -1,0 +1,20 @@
+name-template: 'v$NEXT_MINOR_VERSION'
+tag-template: 'v$NEXT_MINOR_VERSION'
+categories:
+  - title: '🚀 주요 기능 및 개선 사항'
+    labels:
+      - 'Refactoring'
+      - 'Feature'
+  - title: '🐛 버그 수정 사항'
+    label: 'Bug'
+  - title: '기타 변경 사항'
+    labels: 
+      - 'Doc'
+      - 'Style'
+      - 'Test'
+change-template: ' - $TITLE #$NUMBER @$AUTHOR '
+template: |
+  $CHANGES
+replacers:
+  - search: '/\bClosed\b\s+[#][0-9]+\s\W\s/g'
+    replace: '' 
