@@ -76,4 +76,4 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: ${{ secrets.AWS_REGION }}
-      run: aws deploy create-deployment --application-name my-CICD --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name groupName --s3-location bucket=jinho,key=smart-mirror/${GITHUB_SHA}_build.zip,bundleType=zip
+      run: aws deploy create-deployment --application-name my-CICD --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name groupName --s3-location bucket=jinho,key=smart-mirror/${GITHUB_SHA}_build.zip,bundleType=zip
